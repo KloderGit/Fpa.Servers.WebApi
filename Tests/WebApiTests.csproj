@@ -18,7 +18,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Domain\Core\Domain.csproj" />
     <ProjectReference Include="..\Logic\WebApiLogic.csproj" />
     <ProjectReference Include="..\Server\WebApi.csproj" />
   </ItemGroup>
