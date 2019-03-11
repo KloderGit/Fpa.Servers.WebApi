@@ -11,8 +11,8 @@ using Serilog.Context;
 using WebApi.Common.Models;
 using WebApi.Controllers.CallBack.Models;
 using WebApi.Infrastructure.Filters;
-using WebApiBusinessLogic.Logics.CallBack;
-using WebApiBusinessLogic.Logics.CallBack.Models;
+using WebApiLogic.Logics.CallBack;
+using WebApiLogic.Logics.CallBack.Models;
 
 namespace WebApi.Controllers.CallBack
 {

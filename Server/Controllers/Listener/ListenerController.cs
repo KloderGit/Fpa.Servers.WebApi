@@ -14,8 +14,8 @@ using WebApi.Common.Models;
 using WebApi.Controllers.Listener.LocalMaps;
 using WebApi.Controllers.Listener.Models;
 using WebApi.Infrastructure.Filters;
-using WebApiBusinessLogic.Logics.Listener;
-using WebApiBusinessLogic.Logics.Listener.DTO;
+using WebApiLogic.Logics.Listener;
+using WebApiLogic.Logics.Listener.DTO;
 
 namespace WebApi.Controllers.Listener
 {

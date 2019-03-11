@@ -15,7 +15,7 @@ using System;
 using WebApi.Common.Models;
 using WebApi.Infrastructure.Filters;
 using WebApi.Infrastructure.SerilogEnrichers;
-using WebApiBusinessLogic;
+using WebApiLogic;
 
 namespace WebApiFPA
 {

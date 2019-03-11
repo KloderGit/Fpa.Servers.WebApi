@@ -11,9 +11,9 @@ using System.Net.Http;
 using System.Reflection;
 using WebApi.Common.Models;
 using WebApi.Utils;
-using WebApiBusinessLogic;
-using WebApiBusinessLogic.Infrastructure;
-using WebApiBusinessLogic.Models.Crm;
+using WebApiLogic;
+using WebApiLogic.Infrastructure;
+using WebApiLogic.Models.Crm;
 
 namespace WebApiFPA.Controllers
 {

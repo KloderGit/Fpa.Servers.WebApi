@@ -9,7 +9,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using WebApiBusinessLogic.Infrastructure.Actions;
+using WebApiLogic.Infrastructure.Actions;
 
 namespace WebApiTests
 {

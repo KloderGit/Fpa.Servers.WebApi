@@ -12,7 +12,7 @@ namespace WebApi.Utils
     {
         public void Register(TypeAdapterConfig config)
         {
-            config.NewConfig<WebApi.Common.Models.ListenedEvent, WebApiBusinessLogic.Models.Crm.CrmEvent>();
+            config.NewConfig<WebApi.Common.Models.ListenedEvent, WebApiLogic.Models.Crm.CrmEvent>();
 
         }
     }

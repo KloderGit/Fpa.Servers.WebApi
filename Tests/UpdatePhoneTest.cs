@@ -6,7 +6,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 using System.Text;
-using ListenerModels = WebApiBusinessLogic.Logics.Listener.Models;
+using ListenerModels = WebApiLogic.Logics.Listener.Models;
 using DomainModels = Domain.Models.Crm;
 using LibraryAmoCRM.Interfaces;
 using Library1C;
@@ -38,7 +38,7 @@ namespace WebApiTests
         [TestMethod]
         public void CreateUserIn1C()
         {
-            var action = new WebApiBusinessLogic.Logics.Listener.EventHandlers.UpdatePhone<Contact>(Crm,mapper,null,null)
+            var action = new WebApiLogic.Logics.Listener.EventHandlers.UpdatePhone<Contact>(Crm,mapper,null,null)
             {
                 TypePredictions = x => x.Entity == "contacts",
                 EntityPredictions = x => x.Phones().Count() > 0

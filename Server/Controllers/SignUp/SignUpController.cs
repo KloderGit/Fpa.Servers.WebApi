@@ -12,8 +12,8 @@ using WebApi.Controllers.SignUp.Models;
 using WebApi.Infrastructure.Binders;
 using WebApi.Infrastructure.Filters;
 using WebApi.Infrastructure.LocalMaps;
-using WebApiBusinessLogic.Logics.SignUp;
-using WebApiBusinessLogic.Logics.SignUp.Model;
+using WebApiLogic.Logics.SignUp;
+using WebApiLogic.Logics.SignUp.Model;
 
 namespace WebApi.Controllers.SignUp
 {

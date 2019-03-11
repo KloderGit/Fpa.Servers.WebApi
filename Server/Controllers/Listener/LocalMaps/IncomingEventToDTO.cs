@@ -7,8 +7,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WebApi.Controllers.Listener.Models;
-using WebApiBusinessLogic.Logics.Listener.DTO;
-using WebApiBusinessLogic.Logics.Listener.Models;
+using WebApiLogic.Logics.Listener.DTO;
+using WebApiLogic.Logics.Listener.Models;
 
 namespace WebApi.Controllers.Listener.LocalMaps
 {

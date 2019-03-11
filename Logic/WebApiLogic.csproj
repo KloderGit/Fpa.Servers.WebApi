@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Models\Site\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Domain\Common\Common.csproj" />
+    <ProjectReference Include="..\..\Domain\Core\Domain.csproj" />
+    <ProjectReference Include="..\..\Services\Library1C\Library1C.csproj" />
+    <ProjectReference Include="..\..\Services\LibraryAmoCRM\LibraryAmoCRM.csproj" />
+    <ProjectReference Include="..\..\Services\LibraryNeoClient\LibraryNeoClient.csproj" />
+  </ItemGroup>
+
+</Project>

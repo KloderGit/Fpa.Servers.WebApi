@@ -7,7 +7,7 @@
 //using System.Collections.Generic;
 //using System.Linq;
 //using WebApi.Infrastructure.Converters;
-//using WebApiBusinessLogic.Logics.Listener.DTO;
+//using WebApiLogic.Logics.Listener.DTO;
 
 //namespace WebApiTests
 //{
