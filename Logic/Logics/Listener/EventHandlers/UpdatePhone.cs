@@ -15,7 +15,7 @@ namespace WebApiLogic.Logics.Listener.EventHandlers
 {
     public class UpdatePhone<T> : HandlerBase<T> where T : Domain.Models.Crm.Contact
     {
-        public UpdatePhone(IDataManager crm, TypeAdapterConfig mapper, CrmEventHandler eventType, ILoggerFactory loggerFactory)
+        public UpdatePhone(IDataManager crm, TypeAdapterConfig mapper, ILoggerFactory loggerFactory)
             :base (crm, mapper, loggerFactory)
         {}
 

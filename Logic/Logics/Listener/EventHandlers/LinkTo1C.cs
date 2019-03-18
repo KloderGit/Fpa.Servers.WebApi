@@ -36,13 +36,14 @@ namespace WebApiLogic.Logics.Listener.EventHandlers
                 try
                 {
                     var guid = await item.FindIn1C(database);
-                    item.Guid(guid); item.SetGuid(guid);
+
+                    item.Guid(guid);
 
                     await item.UpdateInCRM(crm, mapper);
 
-                    logger.LogInformation("Обновлено значения GUID пользователя. [ ID - {Id} | Name - {Name} | GUID - {Guid}]", item.Id, item.Name, item.Guid());
+                    //logger.LogInformation("Обновлено значения GUID пользователя. [ ID - {Id} | Name - {Name} | GUID - {Guid}]", item.Id, item.Name, guid);
                 }
-                catch (Exception ex) { logger.LogWarning(ex, "Ошибка при обновлении телефона"); }
+                catch (Exception ex) { logger.LogWarning(ex, "Ошибка при обновлении GUID"); }
             }
         }
     }

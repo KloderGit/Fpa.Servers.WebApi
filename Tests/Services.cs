@@ -26,5 +26,10 @@ namespace WebApiTests
             return  new TypeAdapterConfig();
 
         }
+
+
+
+
+
     }
 }

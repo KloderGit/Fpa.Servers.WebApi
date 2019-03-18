@@ -1,5 +1,6 @@
 ﻿using Common.DTO.Service1C;
 using Common.Extensions;
+using Library1C;
 using Library1C.DTO;
 using Mapster;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -19,8 +20,8 @@ namespace WebApiTests
         {
             var commonDTO = new SendLeadto1CDTo
             {
-                ProgramGuid = "7da38f8f-9f71-11e6-80e7-0cc47a4b75cc",
-                UserGuid = "cef55369-cd46-11e8-8103-0cc47a4b75cc",
+                ProgramGuid = "7da38f8f-9f71-11e6-80e7-0cc47a4b75cc", // 3a660dca-9f7b-11e6-80e7-0cc47a4b75cc
+                UserGuid = "cef55369-cd46-11e8-8103-0cc47a4b75cc", //5bf0c9ee-8973-11e6-8102-10c37b94684b
                 ContractTitle = "ТстДГВор",
                 ContractGroup = "Тест",
                 ContractEducationStart = "2018-10-10".ToDateTime('-'),
@@ -35,6 +36,30 @@ namespace WebApiTests
             Assert.AreEqual(serviceDTO.ProgramGuid, "7da38f8f-9f71-11e6-80e7-0cc47a4b75cc");
             Assert.AreEqual(serviceDTO.ContractSubGroup,"");
             Assert.AreEqual(serviceDTO.ContractEducationEnd, new DateTime(2018,10,20));
+        }
+
+        [TestMethod]
+        public void SendLead2()
+        {
+            var commonDTO = new SendLeadto1CDTo
+            {
+                ContractTitle = "ТстДГВор",
+                //ContractGroup = "Тест",
+                //ContractEducationStart = "2019-03-10".ToDateTime('-'),
+                //ContractEducationEnd = "2019-03-13".ToDateTime('-').AddDays(10),
+                //ContractExpire = "2019-03-20".ToDateTime('-').AddDays(180),
+                ContractPrice = 8000,
+                //DecreeTitle = "ТстПрикз",
+                ProgramGuid = "3a660dca-9f7b-11e6-80e7-0cc47a4b75cc",
+                UserGuid = "5bf0c9ee-8973-11e6-8102-10c37b94684b"
+            };
+
+            var serviceDTO = commonDTO.Adapt<AddLeadDTO>();
+
+            var sdf = new UnitOfWork("Kloder", "Kaligula2");
+
+            //  var sss = sdf.Persons.InviteTo1C(serviceDTO).Result;
+
         }
 
 

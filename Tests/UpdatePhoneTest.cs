@@ -38,7 +38,7 @@ namespace WebApiTests
         [TestMethod]
         public void CreateUserIn1C()
         {
-            var action = new WebApiLogic.Logics.Listener.EventHandlers.UpdatePhone<Contact>(Crm,mapper,null,null)
+            var action = new WebApiLogic.Logics.Listener.EventHandlers.UpdatePhone<Contact>(Crm,mapper,null)
             {
                 TypePredictions = x => x.Entity == "contacts",
                 EntityPredictions = x => x.Phones().Count() > 0

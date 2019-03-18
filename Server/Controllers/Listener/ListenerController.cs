@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading.Tasks;
 using WebApi.Common.Models;
 using WebApi.Controllers.Listener.LocalMaps;
 using WebApi.Controllers.Listener.Models;
@@ -37,25 +38,19 @@ namespace WebApi.Controllers.Listener
 
             this.logger = loggerFactory.CreateLogger(this.ToString());
 
-            Log.ForContext("ReportId", 10);
-
-            LogContext.PushProperty("Request", requestScope.Guid.ToString());
-
             logic = new ListenerLogic(mapper, crm, loggerFactory, service1C);
-
-            Debug.Write("adsasdasd");
         }
 
         [HttpPost]
-        public IActionResult Post([ModelBinder(typeof(EventsModelBinder))] IEnumerable<EventViewModel> value)
+        public async Task<IActionResult> Post([ModelBinder(typeof(EventsModelBinder))] IEnumerable<EventViewModel> value)
         {
-            logger.LogDebug("Событие AmoCRM [ {Entity} | {Event} ] -- Model {@model}", value.First().Entity, value.First().Event, value.First());
+            logger.LogDebug("Azure | Событие AmoCRM [ {Entity} | {Event} ] -- Model {@model}", value.First().Entity, value.First().Event, value.First());
 
             try
             {
                 var model = value.Adapt<IEnumerable<EventDTO>>(mapper);
 
-                logic.EventsHandle(model);
+                await logic.EventsHandle(model);
             }
             catch (Exception ex)
             {

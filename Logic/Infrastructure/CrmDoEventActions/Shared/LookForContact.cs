@@ -70,12 +70,7 @@ namespace WebApiLogic.Infrastructure.CrmDoEventActions.Shared
             }
             catch (Exception ex)
             {
-                var info = new MessageLocation(this)
-                {
-                    Metod = MethodBase.GetCurrentMethod().Name
-                };
-
-                currentLogger.LogError(ex, "Ошибка по адресу - {@Location}", info);
+                currentLogger.LogError(ex, "Ошибка поиска GUID при обращении к 1С");
             }
 
             return query?.GUID;

@@ -1,7 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Domain.Models.Crm;
+using Domain.Models.Crm.Parent;
+using System;
 using WebApiLogic.Logics.Listener.DTO;
+using WebApiLogic.Logics.Listener.EventHandlers;
 
 namespace WebApiLogic.Logics.Listener
 {
@@ -25,5 +26,23 @@ namespace WebApiLogic.Logics.Listener
         public virtual void OnNote(EventDTO e) { Note?.Invoke(this, e); }
 
         public virtual void OnStatus(EventDTO e) { Status?.Invoke(this, e); }
+
+
     }
+
+    public class toUpdate
+    {
+        Func<EntityCore, EntityCore> func = null;
+
+        //Func<TIn, TOut> func = null;
+
+        public void toDo(object sender, EventDTO e)
+        {
+            foreach (var item in e.Entities)
+            {
+                var result = func(item);
+            }
+        }
+    }
+
 }

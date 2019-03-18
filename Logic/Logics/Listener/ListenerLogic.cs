@@ -6,6 +6,7 @@ using Mapster;
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using WebApiLogic.Logics.Listener.DTO;
 using WebApiLogic.Logics.Listener.EventHandlers;
 
@@ -14,10 +15,9 @@ namespace WebApiLogic.Logics.Listener
     public class ListenerLogic
     {
         CrmEventHandler events = new CrmEventHandler();
-
-        TypeAdapterConfig mapper;
-        IDataManager crm;
-        UnitOfWork database;
+        readonly TypeAdapterConfig mapper;
+        readonly IDataManager crm;
+        readonly UnitOfWork database;
         ILogger logger;
 
         IDoHandlerAction updatePhone;
@@ -32,18 +32,19 @@ namespace WebApiLogic.Logics.Listener
             this.database = database;
             this.logger = loggerFactory.CreateLogger(this.ToString());
 
-            updatePhone = new UpdatePhone<WebApiLogic.Logics.Listener.Models.Contact>(crm, mapper, events, loggerFactory)
+            updatePhone = new UpdatePhone<WebApiLogic.Logics.Listener.Models.Contact>(crm, mapper, loggerFactory)
             {
                 TypePredictions = x => x.Entity == "contacts",
                 EntityPredictions = x => x.Phones().Count() > 0
             };
             events.Update += updatePhone.DoActionAsync;
 
-            //send = new SendLeadTo1C(crm, mapper, loggerFactory, database)
-            //{
-            //    TypePredictions = x => x.Entity == "leads",
-            //    EntityPredictions = x => x.Status == 555
-            //};
+            send = new SendLeadTo1C(crm, mapper, loggerFactory, database)
+            {
+                TypePredictions = x => x.Entity == "leads",
+                //EntityPredictions = x => x.Status == 19368232 && x.Pipeline.Id == 1102975
+            };
+            events.Status += send.DoActionAsync;
 
             linkTo1C = new LinkTo1C<WebApiLogic.Logics.Listener.Models.Contact>(crm, database, mapper, loggerFactory)
             {
@@ -54,7 +55,7 @@ namespace WebApiLogic.Logics.Listener
             events.Add += linkTo1C.DoActionAsync;
         }
 
-        public void EventsHandle(IEnumerable<EventDTO> crmEvents)
+        public async Task EventsHandle(IEnumerable<EventDTO> crmEvents)
         {
             foreach (var evnt in crmEvents)
             {
