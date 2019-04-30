@@ -61,7 +61,9 @@ namespace WebApi.Infrastructure.LocalMaps
                 .Map(
                     dest => dest.Date,
                     src => src.FirstOrDefault( x => x.Name == "DATA[DATE]" ) != null
-                        ? DateTime.Parse( src.FirstOrDefault( x => x.Name == "DATA[DATE]").Value, new CultureInfo( "ru-RU" ) ) 
+                        ? !String.IsNullOrEmpty( src.FirstOrDefault(x => x.Name == "DATA[DATE]").Value.Replace(" ", string.Empty) ) 
+                            ? DateTime.Parse( src.FirstOrDefault( x => x.Name == "DATA[DATE]").Value, new CultureInfo( "ru-RU" ) ) 
+                            : default(DateTime) 
                         : default(DateTime)
                 )
                 .Map(
