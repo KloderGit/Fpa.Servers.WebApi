@@ -43,6 +43,8 @@ namespace WebApiLogic.Logics.Listener.EventHandlers
 
                     //logger.LogInformation("Обновлено значения GUID пользователя. [ ID - {Id} | Name - {Name} | GUID - {Guid}]", item.Id, item.Name, guid);
                 }
+                catch (ArgumentNullException ex) { logger.LogWarning(ex, ex.Message); }
+                catch (NullReferenceException ex) { logger.LogWarning(ex, ex.Message); }
                 catch (Exception ex) { logger.LogWarning(ex, "Ошибка при обновлении GUID"); }
             }
         }

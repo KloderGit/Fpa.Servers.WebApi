@@ -90,11 +90,9 @@ namespace WebApiLogic.Logics.SignUp
 
             try
             {
-                System.Threading.Tasks.Task taskAddNote = System.Threading.Tasks.Task.Factory.StartNew(
-                   () => {
-                       crm.Notes.Add( new [] { systemNote, modelNote } );
-                   }
-                );
+
+                await crm.Notes.Add( new [] { systemNote, modelNote } );
+
             }
             catch (Exception ex)
             {

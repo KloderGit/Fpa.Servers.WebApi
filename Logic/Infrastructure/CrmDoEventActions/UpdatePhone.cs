@@ -41,19 +41,26 @@ namespace WebApiLogic.Infrastructure.CrmDoEventActions
 
             try
             {
-                amoUser = await crm.Contacts.Get().Filter( f => f.Id = int.Parse( e.EntityId ) ).Execute();
-                    if (amoUser == null) throw new NullReferenceException( "Контакт [ Id -" + e.EntityId + " ] не найден в CRM" );
+                var id = int.Parse(e.EntityId);
 
-                contact = amoUser.Adapt<IEnumerable<Contact>>( mapper ).FirstOrDefault();
+                amoUser = await crm.Contacts.Get().Filter(f => f.Id = id ).Execute();
+                if (amoUser == null) throw new NullReferenceException("Контакт [ Id -" + e.EntityId + " ] не найден в CRM");
+
+                contact = amoUser.Adapt<IEnumerable<Contact>>(mapper).FirstOrDefault();
             }
             catch (NullReferenceException ex)
             {
-                currentLogger.LogDebug( ex, "Ошибка, нулевое значение {@Contacts}", contact, amoUser );
+                currentLogger.LogDebug(ex, "Ошибка, нулевое значение {@Contacts}", contact, amoUser);
+                return;
+            }
+            catch (ArgumentNullException ex)
+            {
+                currentLogger.LogDebug(ex, "Ошибка (int) конвертации ID {@Contact}", contact);
                 return;
             }
             catch (Exception ex)
             {
-                currentLogger.LogDebug( ex, "Запрос пользователя amoCRM окончился неудачей. Событие - {@Event}, {@AmoUser}", e, amoUser, contact );
+                currentLogger.LogDebug(ex, "Запрос пользователя amoCRM окончился неудачей. Событие - {@Event}, {@AmoUser}", e, amoUser, contact);
                 return;
             }
 

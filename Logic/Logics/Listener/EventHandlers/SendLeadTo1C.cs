@@ -1,20 +1,14 @@
-﻿using Common.DTO.Service1C;
-using Common.Extensions.ContactDomain;
+﻿using Common.Extensions.ContactDomain;
 using Common.Extensions.LeadDomain;
 using Domain.Models.Crm.Parent;
 using Library1C;
-using Library1C.DTO;
 using LibraryAmoCRM.Configuration;
-using LibraryAmoCRM.Infarstructure.QueryParams;
 using LibraryAmoCRM.Interfaces;
 using LibraryAmoCRM.Models;
 using Mapster;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Threading.Tasks;
 using WebApiLogic.Logics.Listener.DTO;
 using WebApiLogic.Logics.Listener.Models;
 

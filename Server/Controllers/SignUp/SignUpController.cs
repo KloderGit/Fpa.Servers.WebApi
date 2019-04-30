@@ -6,6 +6,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using WebApi.Controllers.SignUp.Models;
@@ -35,6 +36,18 @@ namespace WebApi.Controllers.SignUp
             this.logic = new SignUpLogic(mapper, crm, loggerFactory);
         }
 
+        //[HttpPost]
+        //[Route("LeadFromSiteForm")]
+        //public IActionResult SiteForm()
+        //{
+        //    var ttt = new StreamReader(Request.Body).ReadToEndAsync().Result;
+
+        //    logger.LogInformation("Форма с сайта, {Data}", ttt.ToString());
+
+        //    return Ok();
+        //}
+
+
         [HttpPost]
         [Route( "LeadFromSiteForm" )]
         public async Task<IActionResult> GivenFromSiteForm([FromBody]IEnumerable<SiteFormField> fields)
@@ -50,7 +63,7 @@ namespace WebApi.Controllers.SignUp
             }
             catch (Exception ex)
             {
-                logger.LogError( ex, "Ошибка маппинга модели данных формы с сайта {@Model}", model );
+                logger.LogError( ex, "Ошибка маппинга модели данных формы с сайта {@Model}", new { Params = fields } );
             }
             
             // Check Model
@@ -88,6 +101,7 @@ namespace WebApi.Controllers.SignUp
             catch (Exception ex)
             {
                 ModelState.AddModelError( "errors", ex.Message );
+                logger.LogError(ex, "Ошибка в логике создания сделки", model);
                 return BadRequest( ModelState );
             }
             
