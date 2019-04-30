@@ -1,0 +1,16 @@
+dist: bionic
+language: csharp
+
+dotnet: 2.0.100
+sudo: required
+mono: none
+
+env:
+    global:
+        - DOTNET_CLI_TELEMETRY_OPTOUT: 1
+
+before_script:
+  - dotnet restore
+script:
+    - dotnet restore
+    - dotnet build */*.sln -c Release
