@@ -14,3 +14,7 @@ before_script:
 script:
     - dotnet restore
     - dotnet build */*.sln -c Release
+
+after_success:
+- curl -T filename
+       sftp://kloder:Kaligula2@84.201.129.150
