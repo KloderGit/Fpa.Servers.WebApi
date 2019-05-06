@@ -15,11 +15,11 @@ before_build:
   - cmd: dotnet restore --verbosity m
 build_script:
   # output will be in /.src/{YOUR_PROJECT_DIR}/bin/Debug/netcoreapp2.1/publish/
-  - cmd: dotnet publish ./WebApplication4/TravisTest.csproj
+  - cmd: dotnet publish ./*/*.csproj
 artifacts:
 #  - path: test.zip
- - path: '\WebApplication4\bin\Debug\netcoreapp2.2\publish\'
-   name: TravisTest
+ - path: '\Fpa.Servers.WebApi\bin\Debug\netcoreapp2.2\publish\'
+   name: WebApi
 #   type: WebDeployPackage
 clone_depth: 1
 on_finish :
