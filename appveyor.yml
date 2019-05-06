@@ -24,12 +24,4 @@ artifacts:
 clone_depth: 1
 on_finish :
   # any cleanup in here
-deploy:
-  provider: WebDeploy
-  server: https://kloder.ru:8172/msdeploy.axd
-  website: api
-  username: Administrator
-  password: HXS7atqd
-  ntlm: false
-  remove_files: false
-  artifact:
+
