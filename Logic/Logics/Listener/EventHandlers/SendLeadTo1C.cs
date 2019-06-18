@@ -43,12 +43,21 @@ namespace WebApiLogic.Logics.Listener.EventHandlers
                 var contact = lead.MainContact;
                 contact.GetSelf(crm, mapper);
 
-                var guid = await contact.FindIn1C(database);
-                if (String.IsNullOrEmpty(guid))
+                if (String.IsNullOrEmpty(contact.Guid()))
                 {
-                    guid = await contact.CreateIn1C(database, mapper);
-                    contact.Guid(guid); contact.SetGuid(guid);
-                    await contact.UpdateInCRM(crm,mapper);
+                    var guid = contact.FindIn1C(database).Result;
+
+                    if (String.IsNullOrEmpty(guid))
+                    {
+                        guid = contact.CreateIn1C(database, mapper).Result;
+                        contact.Guid(guid); contact.SetGuid(guid);
+                        await contact.UpdateInCRM(crm, mapper);
+                    }
+                    else
+                    {
+                        contact.Guid(guid); contact.SetGuid(guid);
+                        await contact.UpdateInCRM(crm, mapper);
+                    }
                 }
 
                 try

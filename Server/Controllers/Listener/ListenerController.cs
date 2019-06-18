@@ -9,7 +9,10 @@ using Serilog.Context;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Threading.Tasks;
 using WebApi.Common.Models;
 using WebApi.Controllers.Listener.LocalMaps;
@@ -17,6 +20,7 @@ using WebApi.Controllers.Listener.Models;
 using WebApi.Infrastructure.Filters;
 using WebApiLogic.Logics.Listener;
 using WebApiLogic.Logics.Listener.DTO;
+using System.Web;
 
 namespace WebApi.Controllers.Listener
 {
@@ -59,6 +63,17 @@ namespace WebApi.Controllers.Listener
             }
 
             return Ok();
+        }
+
+        [HttpPost]
+        [Route("raw")]
+        public HttpResponseMessage Post()
+        {
+            var incomingQuery = new StreamReader(Request.Body).ReadToEndAsync().Result;
+
+            logger.LogInformation("Source | Данные от AMO, {Data}", HttpUtility.UrlDecode(incomingQuery.ToString()));
+
+            return new HttpResponseMessage(HttpStatusCode.OK);
         }
     }
 }
