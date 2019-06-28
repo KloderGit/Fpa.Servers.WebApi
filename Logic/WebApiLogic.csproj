@@ -19,6 +19,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Domain\Common\Common.csproj" />
+    <ProjectReference Include="..\..\Services\LibraryAmoCRM\LibraryAmoCRM.csproj" />
   </ItemGroup>
 
 </Project>
