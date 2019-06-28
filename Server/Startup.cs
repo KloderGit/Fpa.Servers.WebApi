@@ -39,7 +39,7 @@ namespace WebApiFPA
 
             //services.AddScoped<ILoggerService, LoggerService>();
 
-            services.AddSingleton<Connection>(con =>
+            services.AddTransient<Connection>(con =>
            {
                return new Connection(
                    Configuration.GetSection("providers:0:AmoCRM:connection:account:name").Value,
