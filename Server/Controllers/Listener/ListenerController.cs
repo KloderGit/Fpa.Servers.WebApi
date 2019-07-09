@@ -75,5 +75,26 @@ namespace WebApi.Controllers.Listener
 
             return new HttpResponseMessage(HttpStatusCode.OK);
         }
+
+        [HttpGet]
+        [Route("getguid")]
+        public async Task<IActionResult> GetOrCreateUser1CGuid(int id)
+        {
+            string result = default;
+
+            try
+            {
+                result = await logic.GetOrCreate1CUserFromCrm(id);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+            return new ObjectResult(result)
+            {
+                StatusCode = Microsoft.AspNetCore.Http.StatusCodes.Status200OK
+            };
+        }
     }
 }
