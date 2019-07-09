@@ -1,14 +1,18 @@
 ﻿using Common.Extensions.ContactDomain;
 using Common.Mapping;
+using CrmModels = Domain.Models.Crm;
 using Library1C;
+using LibraryAmoCRM.Infarstructure.QueryParams;
 using LibraryAmoCRM.Interfaces;
 using Mapster;
 using Microsoft.Extensions.Logging;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WebApiLogic.Logics.Listener.DTO;
 using WebApiLogic.Logics.Listener.EventHandlers;
+using LibraryAmoCRM.Models;
 
 namespace WebApiLogic.Logics.Listener
 {
@@ -77,6 +81,43 @@ namespace WebApiLogic.Logics.Listener
                         break;
                 }
             }
+        }
+
+
+        public async Task<string> GetOrCreate1CUserFromCrm(int id)
+        {
+            if (id == default) throw new ArgumentException();
+
+            string guid = default;
+
+            try
+            {
+                var request = crm.Contacts.Get().Filter(x => x.Id = id).Execute();
+                var response = request.Result;
+                if (response == null) throw new NullReferenceException($"Пользователь AmoCrm с id - {id} не найден.");
+                var amoUser = response.First().Adapt<CrmModels.Contact>(mapper);
+
+                //if (!String.IsNullOrEmpty(amoUser.Guid())) return amoUser.Guid();
+
+                guid = database.Persons.GetGuidByPhoneOrEmail(amoUser.Phones().First().Value, amoUser.Email().First().Value).Result.GUID;
+
+                if (String.IsNullOrEmpty(guid))
+                {
+                    guid = await amoUser.CreateIn1C(database, mapper);
+
+                    if (!String.IsNullOrEmpty(guid))
+                    {
+                        amoUser.Guid(guid);
+                        await crm.Contacts.Update(amoUser.GetChanges().Adapt<ContactDTO>(mapper));
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+            return guid;
         }
     }
 }
