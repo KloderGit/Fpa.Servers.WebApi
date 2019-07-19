@@ -94,7 +94,8 @@ namespace WebApiLogic.Logics.Listener
             {
                 var request = crm.Contacts.Get().Filter(x => x.Id = id).Execute();
                 var response = request.Result;
-                if (response == null) throw new NullReferenceException($"Пользователь AmoCrm с id - {id} не найден.");
+                if (response == null) return String.Empty;
+                    //if (response == null) throw new NullReferenceException($"Пользователь AmoCrm с id - {id} не найден.");
                 var amoUser = response.First().Adapt<CrmModels.Contact>(mapper);
 
                 //if (!String.IsNullOrEmpty(amoUser.Guid())) return amoUser.Guid();
