@@ -48,7 +48,7 @@ namespace WebApi.Controllers.Listener
         [HttpPost]
         public async Task<IActionResult> Post([ModelBinder(typeof(EventsModelBinder))] IEnumerable<EventViewModel> value)
         {
-            logger.LogDebug("Azure | Событие AmoCRM [ {Entity} | {Event} ] -- Model {@model}", value.First().Entity, value.First().Event, value.First());
+            logger.LogDebug("FirstDVS | Событие AmoCRM [ {Entity} | {Event} ] -- Model {@model}", value.First().Entity, value.First().Event, value.First());
 
             try
             {
@@ -71,7 +71,7 @@ namespace WebApi.Controllers.Listener
         {
             var incomingQuery = new StreamReader(Request.Body).ReadToEndAsync().Result;
 
-            logger.LogInformation("Source | Данные от AMO, {Data}", HttpUtility.UrlDecode(incomingQuery.ToString()));
+            logger.LogInformation("FirstDVS | Source | Данные от AMO, {Data}", HttpUtility.UrlDecode(incomingQuery.ToString()));
 
             return new HttpResponseMessage(HttpStatusCode.OK);
         }

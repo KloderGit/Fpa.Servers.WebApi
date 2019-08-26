@@ -38,18 +38,23 @@ namespace WebApiLogic.Logics.Listener.EventHandlers
                 var lead = itemCore as Lead;
                 logger.LogDebug("Отправка сделки в 1С. Source - {@Model}", lead);
                 
-                lead.GetSelf(crm, mapper);
+                var getLead = await lead.GetSelf(crm, mapper);
+                lead = getLead.Adapt<Lead>();
 
                 var contact = lead.MainContact;
-                contact.GetSelf(crm, mapper);
+
+                var getContact = await contact.GetSelfAsync(crm, mapper);
+
+                lead.MainContact = getContact.Adapt<Contact>();
+                contact = lead.MainContact;
 
                 if (String.IsNullOrEmpty(contact.Guid()))
                 {
-                    var guid = contact.FindIn1C(database).Result;
+                    var guid = await contact.FindIn1C(database);
 
                     if (String.IsNullOrEmpty(guid))
                     {
-                        guid = contact.CreateIn1C(database, mapper).Result;
+                        guid = await contact.CreateIn1C(database, mapper);
                         contact.Guid(guid); contact.SetGuid(guid);
                         await contact.UpdateInCRM(crm, mapper);
                     }

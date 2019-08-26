@@ -93,14 +93,16 @@ namespace WebApiLogic.Logics.Listener
             try
             {
                 var request = crm.Contacts.Get().Filter(x => x.Id = id).Execute();
-                var response = request.Result;
+                var response = await request;
+
                 if (response == null) return String.Empty;
                     //if (response == null) throw new NullReferenceException($"Пользователь AmoCrm с id - {id} не найден.");
                 var amoUser = response.First().Adapt<CrmModels.Contact>(mapper);
 
                 //if (!String.IsNullOrEmpty(amoUser.Guid())) return amoUser.Guid();
 
-                guid = database.Persons.GetGuidByPhoneOrEmail(amoUser.Phones().First().Value, amoUser.Email().First().Value).Result.GUID;
+                var getGuid = await database.Persons.GetGuidByPhoneOrEmail(amoUser.Phones().First().Value, amoUser.Email().First().Value);
+                guid = getGuid.GUID;
 
                 if (String.IsNullOrEmpty(guid))
                 {
