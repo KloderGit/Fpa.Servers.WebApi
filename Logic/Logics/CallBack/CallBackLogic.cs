@@ -124,7 +124,7 @@ namespace WebApiLogic.Logics.CallBack
                 }
                 else
                 {
-                    manager = model.ProgramType.ToUpper() == "ДИСТАНЦИОННАЯ".ToUpper() ? (int)ResponsibleUserEnum.Филатова_Елена : (int)ResponsibleUserEnum.Анастасия_Столовая;
+                    manager = model.ProgramType.ToUpper() == "ДИСТАНЦИОННАЯ".ToUpper() ? (int)ResponsibleUserEnum.Татьяна_Власова : (int)ResponsibleUserEnum.Анастасия_Столовая;
                 }
             }
 
